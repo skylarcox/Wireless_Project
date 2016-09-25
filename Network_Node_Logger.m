@@ -12,10 +12,13 @@
 %% Set up
 
 % Enter known addresses for nodes that may be on network
-nodeA = '007D33A20040D858';
-nodeB = '42007D33A20040F2';
+% nodeA = '007D33A20040D858';
+% nodeB = '42007D33A20040F2';
+nodeA = '0013A20040F2A915';
+nodeB = '0013A20040D858AA';
 
 numOfNodes = 2;
+
 
 % Identify com port that coordinator node is using
 xb = xbee('COM5');  
@@ -23,8 +26,11 @@ xb = xbee('COM5');
 % Check parameters of coordinator radio
 getLocalParameters(xb)
 
+% setPinMode(xb, 20, 'analogInput')
+% setPinMode(xb, 19, 'analogInput')
+
 % Set duration of data logging
-searchTime = 20;  % [sec], Duration of test
+searchTime = 500;  % [sec], Duration of test
 pingWait   = 2;   % [sec], Time to wait between pings
 
 % Estimate number of pings that will occur during testing
@@ -47,11 +53,13 @@ for iDscvr = 1:numOfPings
     % Log A if ismember
     if ismember(nodeA,nodeAdresses{iDscvr})
         nodeNames{iDscvr,1} = 'A';
+        %readVoltage(xb, 19, nodeA)
     end
     
     % Log B if ismember
     if ismember(nodeB,nodeAdresses{iDscvr})
         nodeNames{iDscvr,2} = 'B';
+        %readVoltage(xb, 19, nodeB)
     end
     
     % Output status message
@@ -64,7 +72,7 @@ end
 %% Reporting cell matrix
 
 % Compile reporting information
-reportCell = cell(numOfPings,numOfNodes);
+reportCell = cell(numOfPings,numOfNodes+2);
 for iUp = 1:numOfPings
     reportCell(iUp,:) = {checkTime{iUp},nodesInNet(iUp,1),nodeNames{iUp,:}};
 end
