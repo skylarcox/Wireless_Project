@@ -83,11 +83,11 @@ while now < endTime
 end
 
 %% Reporting cell matrix
-numOfPings = iDscvr;
+
 % Compile reporting information
 %reportCell = cell(numOfPings,numOfNodes+2);
 for iUp = 1:numOfPings
-    reportCell(iUp,:) = {checkTime{iUp},nodesInNet(iUp,1),nodeNames{iUp,:}}; %#ok<SAGROW>
+    reportCell(iUp,:) = {checkTime{iUp},nodesInNet(iUp,1),nodeNames{iUp,:}};
 end
 
 %===================================================================================================
